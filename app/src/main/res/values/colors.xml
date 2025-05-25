@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Primary Brand Color -->
+    <color name="colorPrimary">#56CFDB</color>
+    <color name="colorPrimaryVariant">#2A9CAF</color>
+    <color name="colorOnPrimary">#FFFFFF</color>
+
+    <!-- Secondary Accent Colors -->
+    <color name="colorSecondary">#8F75DA</color>
+    <color name="colorSecondaryVariant">#A7EAF1</color>
+    <color name="colorOnSecondary">#FFFFFF</color>
+
+    <!-- Supportive Colors -->
+    <color name="colorHeartAccent">#FF7693</color>
+    <color name="colorCardSurface">#E1EAF0</color>
+    <color name="colorBackground">#F7FAFC</color>
+
+    <!-- Text Colors -->
+    <color name="colorTextPrimary">#2D2D2D</color>
+    <color name="colorTextSecondary">#6E7B87</color>
+
+    <!-- Status Colors (optional) -->
+    <color name="colorSuccess">#4CAF50</color>
+    <color name="colorWarning">#FFC107</color>
+    <color name="colorError">#F44336</color>
+    <color name="white">#FFFFFF</color>
+
+    <color name="black">#000000</color>
+</resources>
