@@ -29,7 +29,7 @@ public class AgeDetailsActivity extends AppCompatActivity {
     private Button btnSaveUser, btnShowSavedUsers;
     TextView txtFactHeartBeat, txtFactSleep, txtFactMeals, txtFactWater, txtFactSteps,txtZodiac;
     private ImageButton btnShowBirthdayCountdown;
-    private TextView tvNameGender, tvBornWeekday, tvAgeYears, tvAgeMonths, tvAgeWeeks, tvAgeDays, tvAgeHours,
+    private TextView tvCategory, tvNameGender, tvBornWeekday, tvAgeYears, tvAgeMonths, tvAgeWeeks, tvAgeDays, tvAgeHours,
             tvAgeMinutes, tvAgeSeconds, tvNextBirthday,txtBirthMonths, txtBirthWeeks, txtBirthDays, txtBirthHours, txtBirthMinutes, txtBirthSeconds;
     Handler handler = new Handler();
     Runnable countdownRunnable;
@@ -41,6 +41,7 @@ public class AgeDetailsActivity extends AppCompatActivity {
         userDatabaseHelper = new UserDatabaseHelper(this);
 
         // Initialize UI components
+        tvCategory = findViewById(R.id.txtCategory);
         txtZodiac = findViewById(R.id.txtZodiacSign);
         txtFactHeartBeat = findViewById(R.id.txtFactHeartBeat);
         txtFactSleep = findViewById(R.id.txtFactSleep);
@@ -69,7 +70,8 @@ public class AgeDetailsActivity extends AppCompatActivity {
         llBirthdayCountDown = findViewById(R.id.BirthdayCountDownView);
         // Receive intent data
         Intent intent = getIntent();
-        String birthDateStr = intent.getStringExtra("birthDate");     // e.g., "14/01/2010"
+        String birthDateStr = intent.getStringExtra("birthDate");// e.g., "14/01/2010"
+        String category = intent.getStringExtra("category"); // e.g., "Family"
         String birthTimeStr = intent.getStringExtra("birthTime");     // e.g., "10:04 PM"
         String currentDateStr = intent.getStringExtra("currentDate"); // e.g., "24/05/2025"
         String currentTimeStr = intent.getStringExtra("currentTime"); // e.g., "08:30 AM"
@@ -98,6 +100,7 @@ public class AgeDetailsActivity extends AppCompatActivity {
             LocalDateTime currentDateTime = LocalDateTime.parse(currentDateTimeStr, formatter);
 
             tvNameGender.setText(name + " (" + gender + ")");
+            tvCategory.setText("Category: "+category);
             updateAgeDetails(birthDateTime, currentDateTime);
             updateNextBirthday(birthDateTime.toLocalDate(), currentDateTime.toLocalDate());
             startBirthdayCountdown(birthDateTime);
@@ -118,7 +121,7 @@ public class AgeDetailsActivity extends AppCompatActivity {
         });
         btnSaveUser.setOnClickListener(v -> {
 
-            userDatabaseHelper.addUser(name, gender, birthDateStr, currentDateStr, birthTimeStr, currentTimeStr);
+            userDatabaseHelper.addUser(name, gender, birthDateStr, currentDateStr, birthTimeStr, currentTimeStr,category);
 
             Toast.makeText(AgeDetailsActivity.this, "User saved successfully!", Toast.LENGTH_SHORT).show();
         });

@@ -18,7 +18,7 @@ public class WorkUtils {
 
         PeriodicWorkRequest dailyWork = new PeriodicWorkRequest.Builder(
                 DailyFactWorker.class,
-                1, TimeUnit.SECONDS
+                1, TimeUnit.DAYS
         )
                 .setConstraints(constraints)
                 .build();

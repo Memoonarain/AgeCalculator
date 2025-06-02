@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class UserDatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DB_NAME = "birthday_app.db";
@@ -29,7 +30,8 @@ public class UserDatabaseHelper extends SQLiteOpenHelper {
                 "birthdate TEXT, " +
                 "special_date TEXT,"+
                 "birthtime TEXT," +
-                "special_time TEXT)";
+                "special_time TEXT," +
+                "category TEXT)";
         db.execSQL(createTable);
     }
 
@@ -39,7 +41,7 @@ public class UserDatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void addUser(String name, String gender, String birthdate, String specialDate,String birthtime, String specialTime) {
+    public void addUser(String name, String gender, String birthdate, String specialDate,String birthtime, String specialTime, String category) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("name", name);
@@ -48,6 +50,7 @@ public class UserDatabaseHelper extends SQLiteOpenHelper {
         values.put("special_date", specialDate);
         values.put("birthtime", birthtime);
         values.put("special_time", specialTime);
+        values.put("category", category);
         db.insert(TABLE_USERS, null, values);
         db.close();
     }
@@ -66,7 +69,8 @@ public class UserDatabaseHelper extends SQLiteOpenHelper {
                         cursor.getString(3),
                         cursor.getString(4),
                         cursor.getString(5),
-                        cursor.getString(6)
+                        cursor.getString(6),
+                        cursor.getString(7)
                 ));
             } while (cursor.moveToNext());
         }
@@ -74,4 +78,25 @@ public class UserDatabaseHelper extends SQLiteOpenHelper {
         db.close();
         return users;
     }
+    public List<UserModel> getUsersByCategory(String category) {
+        List<UserModel> userList = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String selection = "category = ?";
+        String[] selectionArgs = { category };
+
+        Cursor cursor = db.query(TABLE_USERS, null, selection, selectionArgs, null, null, null);
+
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                // Extract data from cursor and create UserModel objects accordingly
+                // Add each UserModel to userList
+            } while (cursor.moveToNext());
+            cursor.close();
+        }
+
+        db.close();
+        return userList;
+    }
+
 }

@@ -28,7 +28,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
     public static class UserViewHolder extends RecyclerView.ViewHolder {
         TextView txtFactHeartBeat, txtFactSleep, txtFactMeals, txtFactWater, txtFactSteps,txtZodiac;
 
-        TextView tvNameGender, tvBornWeekday, tvAgeYears, tvAgeMonths, tvAgeWeeks, tvAgeDays, tvAgeHours,
+        TextView tvCategory, tvNameGender, tvBornWeekday, tvAgeYears, tvAgeMonths, tvAgeWeeks, tvAgeDays, tvAgeHours,
                 tvAgeMinutes, tvAgeSeconds, tvNextBirthday, txtBirthMonths, txtBirthWeeks, txtBirthDays,
                 txtBirthHours, txtBirthMinutes, txtBirthSeconds;
         ConstraintLayout llBirthdayCountDown;
@@ -40,6 +40,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
             super(itemView);
 
             // Bind views from item_age_details.xml
+            tvCategory = itemView.findViewById(R.id.txtCategory);
             txtZodiac = itemView.findViewById(R.id.txtZodiacSign);
             txtFactHeartBeat = itemView.findViewById(R.id.txtFactHeartBeat);
             txtFactSleep = itemView.findViewById(R.id.txtFactSleep);
@@ -137,7 +138,12 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         try {
             LocalDateTime birthDateTime = LocalDateTime.parse(birthDateStr + "T" + birthTimeStr, formatter);
             LocalDateTime currentDateTime = LocalDateTime.parse(currentDateStr + "T" + currentTimeStr, formatter);
+            if (user.getCategory().isEmpty()){
+                holder.tvCategory.setText("Unkown");
+            }else {
 
+                holder.tvCategory.setText("Category: "+user.getCategory());
+            }
             holder.tvNameGender.setText(name + " (" + gender + ")");
             updateAgeDetails(holder, birthDateTime, currentDateTime);
             updateNextBirthday(holder, birthDateTime.toLocalDate(), currentDateTime.toLocalDate());
@@ -148,6 +154,9 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         } catch (Exception e) {
             e.printStackTrace();
             holder.tvNameGender.setText("Invalid date/time");
+            holder.tvCategory.setText("Invalid date/time");
+            holder.tvBornWeekday.setText("Invalid date/time");
+            holder.tvAgeYears.setText("Invalid date/time");
         }
         holder.btnShowBirthdayCountdown.setOnClickListener(v -> {
             if (holder.llBirthdayCountDown.getVisibility() == View.VISIBLE) {

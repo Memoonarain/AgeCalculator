@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Age Calculater</string>
+    <string name="navigation_drawer_open">Open Drawer\n</string>
+    <string name="navigation_drawer_close">CloseDrawer</string>
 </resources>

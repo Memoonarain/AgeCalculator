@@ -8,7 +8,8 @@ public class UserModel {
 
     public String birthtime;
     public String specialTime;
-    public UserModel(int id,String name,String gender,String birthdate,String specialDate, String birthtime,String specialTime) {
+    public String category;;
+    public UserModel(int id,String name,String gender,String birthdate,String specialDate, String birthtime,String specialTime,String category) {
         this.birthdate = birthdate;
         this.birthtime = birthtime;
         this.gender = gender;
@@ -16,6 +17,7 @@ public class UserModel {
         this.name = name;
         this.specialDate = specialDate;
         this.specialTime = specialTime;
+        this.category = category;
     }
 
     // Getters (optional: add setters)
@@ -26,5 +28,6 @@ public class UserModel {
     public String getSpecialDate() { return specialDate; }
     public String getBirthtime() { return birthtime; }
     public String getSpecialTime() { return specialTime; }
+    public String getCategory() { return category; }
 
 }
